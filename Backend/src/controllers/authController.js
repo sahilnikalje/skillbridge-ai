@@ -1,6 +1,6 @@
 const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
-
+const blacklistTokens=require('../models/blacklistModel')
 const User=require('../models/userModel')
 
 //todo register
@@ -90,6 +90,45 @@ const login=async(req,res)=>{
     }
 }
 
+//todo logout
+const logout=async(req,res)=>{
+    try{
+        const token=req.cookies.token
+        if(token){
+            //! token blacklisting for logout
+            await blacklistTokens.create({token})
+        }
+        //! clear the token 
+        res.clearCookie('token')
+        
+        res.status(200).json({success:true, message:"Logged out successfully"})
+    }
+    catch(err){
+        console.log("logoutControllerErr: ", err.message)
+        res.status(500).json({success:false, message:"Something went wrong"})
+    }
+}
+
+//todo getme
+const getMe=async(req,res)=>{
+    try{
+        const user=await User.findById(req.user.id)
+        res.status(200).json({
+            success:true, 
+            message:"User details fetched successfully",
+            user:{
+                id:user._id,
+                name:user.name,
+                email:user.email
+            }
+        })
+    }
+    catch(err){
+        console.log("getMeControllerErr: ", err.message)
+        res.status(500).json({success:false, message:"Something went wrong"})
+    }
+}
 
 
-module.exports={register, login}
+
+module.exports={register, login, logout, getMe}
