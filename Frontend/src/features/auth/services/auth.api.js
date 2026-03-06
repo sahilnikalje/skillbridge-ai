@@ -4,7 +4,13 @@ import axios from 'axios'
 const API=axios.create({
     baseURL:import.meta.env.VITE_API_URL,
     //! axios does not have access to cookies, so we use this
-    withCredentials:true
+    // withCredentials:true
+})
+//!for deployement
+API.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token')
+    if (token) config.headers.Authorization = `Bearer ${token}`
+    return config
 })
 
 export async function register({name, email, password}){
@@ -12,6 +18,8 @@ export async function register({name, email, password}){
         const response=await API.post('/api/auth/register', {
             name, email, password
         })
+        //!deployement
+        localStorage.setItem('token', response.data.token)
         return response.data
     }
     catch(err){
@@ -25,6 +33,7 @@ export async function login({email, password}){
         const response=await API.post("/api/auth/login", {
             email, password
         })
+        localStorage.setItem('token', response.data.token)
         return response.data
     }
     catch(err){
@@ -36,7 +45,7 @@ export async function login({email, password}){
 export async function logout(){
     try{
        const response=await API.get("/api/auth/logout")
-
+       localStorage.removeItem('token')
        return response.data
     }
     catch(err){
