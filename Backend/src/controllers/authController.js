@@ -30,7 +30,12 @@ const register=async(req,res)=>{
         )
 
         //todo send token in cookies
-        res.cookie("token", token)
+        res.cookie("token", token,{
+            httpOnly:true,
+            secure:true,
+            sameSite:'None',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
 
         res.status(201).json({
             success:true, 
@@ -72,7 +77,12 @@ const login=async(req,res)=>{
             {expiresIn:'1d'}
         )
 
-        res.cookie("token", token)
+        res.cookie("token", token,{
+            httpOnly:true,
+            secure:true,
+            sameSite:'None',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
 
         res.status(200).json({
             success:true,
