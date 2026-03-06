@@ -40,6 +40,7 @@ const register=async(req,res)=>{
         res.status(201).json({
             success:true, 
             message:"Registered successfully", 
+            token,
             user:{
                 id:user._id,
                 name:user.name,
@@ -87,6 +88,7 @@ const login=async(req,res)=>{
         res.status(200).json({
             success:true,
             message:"Loggedin successfully", 
+            token,
             user:{
                 id:user._id,
                 name:user.name,
@@ -103,7 +105,7 @@ const login=async(req,res)=>{
 //todo logout
 const logout=async(req,res)=>{
     try{
-        const token=req.cookies.token
+        const token=req.headers.authorization?.split(' ')[1]
         if(token){
             //! token blacklisting for logout
             await blacklistTokens.create({token})
