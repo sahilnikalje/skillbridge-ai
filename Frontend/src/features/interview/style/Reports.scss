@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Epilogue:wght@600;700;800;900&display=swap');
+
+// ─── Keyframes ────────────────────────────────────────────────────────────────
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+.reports-page {
+  min-height: 100vh;
+  background: var(--bg-page, #0e1016);
+  font-family: var(--fb, 'Outfit', sans-serif);
+  color: var(--t1, #eef0fa);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+.reports-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  background: linear-gradient(180deg, #0d0f17, #0b0d13);
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+
+    h1 {
+      font-family: var(--fh, 'Epilogue', sans-serif);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--t1, #eef0fa);
+      letter-spacing: -0.4px;
+    }
+  }
+
+  &__count {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--t2, rgba(200, 210, 240, 0.55));
+    padding: 0.2rem 0.65rem;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border, rgba(255,255,255,0.07));
+  }
+
+  &__cta {
+    width: auto !important;
+    padding: 0.65rem 1.25rem !important;
+    margin-top: 0 !important;
+    display: flex;
+    align-items: center;
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--border, rgba(255,255,255,0.07));
+  }
+}
+
+// ─── Nav Brand ────────────────────────────────────────────────────────────────
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  span {
+    font-family: var(--fh, 'Epilogue', sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--t1, #eef0fa);
+    letter-spacing: -0.2px;
+  }
+
+  strong {
+    background: linear-gradient(120deg, var(--blue, #6382ff), var(--violet, #b06aff));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+  }
+}
+
+// ─── Content ──────────────────────────────────────────────────────────────────
+.reports-content {
+  flex: 1;
+  padding: 2.5rem;
+  animation: fade-up 0.4s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+// ─── Grid ─────────────────────────────────────────────────────────────────────
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+}
+
+// ─── Report Card ──────────────────────────────────────────────────────────────
+.report-card {
+  background: var(--bg-card, #13161f);
+  border: 1px solid var(--border, rgba(255,255,255,0.07));
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem 1.2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: card-in 0.38s cubic-bezier(0.4,0,0.2,1) both;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    background: var(--bg-card-h, #171b26);
+    border-color: var(--border-acc, rgba(99,130,255,0.28));
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 1px rgba(99,130,255,0.08);
+    transform: translateY(-2px);
+
+    .report-card__arrow { transform: translateX(4px); color: var(--blue, #6382ff); }
+  }
+
+  &__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0.18rem 0.6rem;
+    border-radius: 50px;
+    background: rgba(99,130,255,0.10);
+    border: 1px solid rgba(99,130,255,0.20);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(160,185,255,0.80);
+  }
+
+  &__title {
+    font-family: var(--fh, 'Epilogue', sans-serif);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--t1, #eef0fa);
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__date {
+    font-size: 0.78rem;
+    color: var(--t2, rgba(200,210,240,0.55));
+  }
+
+  // ── Score Ring ── (arc is now driven by inline style from ScoreRing component)
+  &__ring {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    span {
+      font-family: var(--fh, 'Epilogue', sans-serif);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--t1, #eef0fa);
+      letter-spacing: -1px;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    small {
+      font-family: var(--fh, 'Epilogue', sans-serif);
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--t2, rgba(200,210,240,0.55));
+      align-self: flex-end;
+      margin-bottom: 3px;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--border, rgba(255,255,255,0.07));
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--t2, rgba(200,210,240,0.55));
+
+      svg { opacity: 0.5; flex-shrink: 0; }
+    }
+  }
+
+  &__arrow {
+    font-size: 1rem;
+    color: var(--t3, rgba(160,175,220,0.28));
+    transition: transform 0.2s, color 0.2s;
+  }
+}
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
+.reports-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 5rem 2rem;
+  text-align: center;
+  animation: fade-up 0.4s cubic-bezier(0.4,0,0.2,1) both;
+
+  &__icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border, rgba(255,255,255,0.07));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--t3, rgba(160,175,220,0.28));
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-family: var(--fh, 'Epilogue', sans-serif);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--t1, #eef0fa);
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: var(--t2, rgba(200,210,240,0.55));
+    max-width: 280px;
+    line-height: 1.6;
+  }
+
+  .button.primary-button {
+    width: auto;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.75rem;
+  }
+}
+
+// ─── Header Right (User + Logout) ─────────────────────────────────────────────
+.reports-header__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reports-header__user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.85rem 0.5rem 0.5rem;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border, rgba(255,255,255,0.07));
+  transition: border-color 0.2s;
+
+  &:hover { border-color: var(--border-mid, rgba(255,255,255,0.11)); }
+}
+
+.reports-header__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue, #6382ff), var(--violet, #b06aff));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fh, 'Epilogue', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.reports-header__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.reports-header__user-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--t1, #eef0fa);
+  line-height: 1;
+}
+
+.reports-header__logout {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--fb, 'Outfit', sans-serif);
+  font-size: 0.72rem;
+  color: var(--t2, rgba(200,210,240,0.55));
+  transition: color 0.15s;
+
+  &:hover { color: #f87171; }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 680px) {
+  .reports-header {
+    padding: 1.25rem 1.25rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &__left { flex-wrap: wrap; gap: 0.75rem; }
+    &__cta  { width: 100% !important; justify-content: center; }
+  }
+
+  .reports-content { padding: 1.5rem 1.25rem; }
+
+  .reports-grid { grid-template-columns: 1fr; }
+
+  .report-card__stats { gap: 0.65rem; }
+
+  .reports-header__right { width: 100%; justify-content: space-between; }
+  .reports-header__cta   { flex: 1; justify-content: center; }
+}
