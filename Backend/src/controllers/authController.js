@@ -109,7 +109,11 @@ const logout=async(req,res)=>{
             await blacklistTokens.create({token})
         }
         //! clear the token 
-        res.clearCookie('token')
+        res.clearCookie('token',{
+            httpOnly:true,
+            secure:true,
+            sameSite:'None'
+        })
         
         res.status(200).json({success:true, message:"Logged out successfully"})
     }
