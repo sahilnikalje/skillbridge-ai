@@ -212,7 +212,3 @@ npm run dev
 | `POST` | `/resume/:id` | Download ATS-friendly resume PDF for a report |
 
 ---
-
-## 📄 License
-
-MIT — use it, build on it, ship it.
