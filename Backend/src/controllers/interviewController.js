@@ -8,7 +8,13 @@ const {generateInterviewReport, generateResumePdf}=require('../services/ai.servi
 const InterviewReport=require('../models/interviewReportModel')
 
 const generateInterviewReportController=async(req,res)=>{
+    
     try{
+        const MAX_SIZE_BYTES = 100 * 1024 // 100KB
+        if (req.file.size > MAX_SIZE_BYTES) {
+          return res.status(400).json({ success: false, error: "Resume file is too large. Max allowed size is 100KB." })
+        }
+        
         const resumeContent=await parsePdf(req.file.buffer)
         const resumeText=resumeContent.text
         const {selfDescription, jobDescription}=req.body
