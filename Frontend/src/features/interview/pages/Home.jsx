@@ -16,13 +16,30 @@ const Home = () => {
   const [error, setError] = useState("")
   const resumeInputRef = useRef()
 
-  const handleFileChange = useCallback(() => {
-    const file = resumeInputRef.current?.files?.[0]
-    if (file) {
-      setResumeFileName(file.name)
-      setError("")
-    }
-  }, [])
+  // const handleFileChange = useCallback(() => {
+  //   const file = resumeInputRef.current?.files?.[0]
+  //   if (file) {
+  //     setResumeFileName(file.name)
+  //     setError("")
+  //   }
+  // }, [])
+const MAX_SIZE_KB = 100 // adjust this to your limit
+
+const handleFileChange = useCallback(() => {
+  const file = resumeInputRef.current?.files?.[0]
+  if (!file) return
+
+  const sizeKB = file.size / 1024
+  if (sizeKB > MAX_SIZE_KB) {
+    setError(`File too large (${Math.round(sizeKB)}KB). Please upload a PDF under ${MAX_SIZE_KB}KB.`)
+    resumeInputRef.current.value = "" // clear the input
+    setResumeFileName("")
+    return
+  }
+
+  setResumeFileName(file.name)
+  setError("")
+ }, [])
 
   const handleGenerateReport = useCallback(async () => {
     setError("")
@@ -38,7 +55,10 @@ const Home = () => {
     }
 
     const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-
+                if(data?.error) {
+                  setError(data.error)
+                  return
+                }
     if (!data?._id) {
       setError("Something went wrong. Please try again.")
       return
@@ -132,6 +152,7 @@ const Home = () => {
               name='resume'
               onChange={handleFileChange}
             />
+            <small className="file-size-hint">PDF only · Max size: 100KB</small>
           </div>
 
           <div className="input-group">
