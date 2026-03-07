@@ -19,4 +19,9 @@ app.use(cors({
 app.use('/api/auth', authRouter)
 app.use('/api/interview', interviewRouter)
 
+//**uptime robot ping route
+app.get('/ping', (req,res)=>{
+    res.status(200).send("Server is running")
+})
+
 module.exports=app
