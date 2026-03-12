@@ -197,6 +197,11 @@ console.log("REPORT:", report)
                             {report.skillGap.map((gap, i) => (
                                 <span key={i} className={`skill-tag skill-tag--${gap.severity}`}>
                                     {gap.skill}
+                                    {gap.severity && (
+                                        <span className={`skill-tag__severity skill-tag__severity--${gap.severity}`}>
+                                            {gap.severity}
+                                        </span>
+                                    )}
                                 </span>
                             ))}
                         </div>
